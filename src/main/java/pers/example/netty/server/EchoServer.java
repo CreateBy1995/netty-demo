@@ -14,11 +14,12 @@ import pers.example.netty.handler.EchoServerHandler;
 public class EchoServer {
 
     public void run(int port) throws InterruptedException {
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
-        EventLoopGroup workGroup = new NioEventLoopGroup();
+        // 参数表示需要创建的EventLoop数量
+        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
+        EventLoopGroup workGroup = new NioEventLoopGroup(5);
 
         ServerBootstrap serverBootstrap = new ServerBootstrap();
-
+        // 配置设置
         serverBootstrap.group(bossGroup, workGroup)
                 .channel(NioServerSocketChannel.class)
                 .childHandler(new ChannelInitializer<SocketChannel>() {
@@ -27,6 +28,7 @@ public class EchoServer {
                         socketChannel.pipeline().addLast(new EchoServerHandler());
                     }
                 });
+        // 绑定端口并启动
         ChannelFuture channelFuture = serverBootstrap.bind(port).sync();
         log.info("echo server run with port: {}", port);
         channelFuture.channel().closeFuture().sync();
