@@ -1,4 +1,4 @@
-package pers.example.netty.client;
+package pers.example.netty.client.client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -8,7 +8,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import lombok.extern.slf4j.Slf4j;
-import pers.example.netty.handler.EchoClientHandler;
+import pers.example.netty.client.handler.EchoClientHandler;
 
 @Slf4j
 public class EchoClient {
