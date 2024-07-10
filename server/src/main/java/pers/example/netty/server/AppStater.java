@@ -16,7 +16,7 @@ import pers.example.netty.server.server.EchoServer;
 @Slf4j
 public class AppStater {
     public static void main(String[] args) throws InterruptedException {
-        test0002();
+        start();
     }
 
 

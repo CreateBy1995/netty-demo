@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
+    public EchoServerHandler(){
+        log.info("EchoServerHandler constructor execute ...");
+    }
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
         log.info("echo server ==> channelRegistered");
