@@ -231,5 +231,15 @@ protected boolean runAllTasks(long timeoutNanos) {
     return true;
 }
 
+private AbstractChannelHandlerContext findContextInbound(int mask) {
+    AbstractChannelHandlerContext ctx = this;
+    EventExecutor currentExecutor = executor();
+    do {
+        ctx = ctx.next;
+        // 判断当前的handler是否需要跳过，比如当前事件如果是一个入站事件，而handler又是一个出站处理器
+        // 则跳过该处理器继续寻找下一个。
+    } while (skipContext(ctx, currentExecutor, mask, MASK_ONLY_INBOUND));
+    return ctx;
+}
 
 ```
