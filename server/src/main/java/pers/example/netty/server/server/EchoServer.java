@@ -24,15 +24,6 @@ public class EchoServer {
         // 绑定端口并启动
         ChannelFuture channelFuture = serverBootstrap.bind(port).sync();
         log.info("echo server run with port: {}", port);
-//        new Thread(() -> {
-//            try {
-//                TimeUnit.SECONDS.sleep(5);
-//                log.info("server channel close ...");
-//                channelFuture.channel().close();
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }).start();
         channelFuture.channel().closeFuture().sync();
         log.info("echo server shutdown");
     }
