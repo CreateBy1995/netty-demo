@@ -1,5 +1,8 @@
 ```java
- private ChannelFuture doBind(final SocketAddress localAddress) {
+ import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.nio.NioEventLoop;
+
+private ChannelFuture doBind(final SocketAddress localAddress) {
     final ChannelFuture regFuture = initAndRegister(); // 初始化并注册Channel
     final Channel channel = regFuture.channel(); // 获取Channel
 
@@ -73,7 +76,7 @@ final ChannelFuture initAndRegister() {
 
 protected void run() {
     int selectCnt = 0;
-    for (;;) {
+    for (; ; ) {
         try {
             int strategy;
             try {
@@ -205,11 +208,11 @@ protected boolean runAllTasks(long timeoutNanos) {
     final long deadline = timeoutNanos > 0 ? getCurrentTimeNanos() + timeoutNanos : 0;
     long runTasks = 0;
     long lastExecutionTime;
-    for (;;) {
+    for (; ; ) {
         // 任务执行
         safeExecute(task);
 
-        runTasks ++;
+        runTasks++;
         // 检测是否超时，每64个任务检测一次，个人理解提高了系统的吞吐量，但相应的可能也增加了延迟。
         // Check timeout every 64 tasks because nanoTime() is relatively expensive.
         if ((runTasks & 0x3F) == 0) {
@@ -241,5 +244,17 @@ private AbstractChannelHandlerContext findContextInbound(int mask) {
     } while (skipContext(ctx, currentExecutor, mask, MASK_ONLY_INBOUND));
     return ctx;
 }
+/***
+ * ServerBootstrapAcceptor#channelRead处理连接accept事件，
+ */
+/***
+ * AbstractNioByteChannel#read 读事件处理
+ */
+/***
+ * 1.管道工作机制
+ * 2.事件循环组工作机制
+ * 3.内存分配机制
+ */
+
 
 ```

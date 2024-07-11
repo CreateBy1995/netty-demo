@@ -6,10 +6,10 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.extern.slf4j.Slf4j;
-import pers.example.netty.server.handler.EchoServerChildInitializer;
+import pers.example.netty.server.handler.FixedServerChildInitializer;
 
 @Slf4j
-public class EchoServer {
+public class FixedServer {
 
     public void run(int port) throws InterruptedException {
         // 参数表示需要创建的EventLoop数量
@@ -20,20 +20,11 @@ public class EchoServer {
         // 配置设置
         serverBootstrap.group(bossGroup, workGroup)
                 .channel(NioServerSocketChannel.class)
-                .childHandler(new EchoServerChildInitializer());
+                .childHandler(new FixedServerChildInitializer());
         // 绑定端口并启动
         ChannelFuture channelFuture = serverBootstrap.bind(port).sync();
-        log.info("echo server run with port: {}", port);
-//        new Thread(() -> {
-//            try {
-//                TimeUnit.SECONDS.sleep(5);
-//                log.info("server channel close ...");
-//                channelFuture.channel().close();
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }).start();
+        log.info("fixed server run with port: {}", port);
         channelFuture.channel().closeFuture().sync();
-        log.info("echo server shutdown");
+        log.info("fixed server shutdown");
     }
 }

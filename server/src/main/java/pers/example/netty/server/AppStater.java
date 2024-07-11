@@ -7,6 +7,7 @@ import io.netty.channel.embedded.EmbeddedChannel;
 import lombok.extern.slf4j.Slf4j;
 import pers.example.netty.server.handler.InboundInitializer;
 import pers.example.netty.server.server.EchoServer;
+import pers.example.netty.server.server.FixedServer;
 
 /**
  * @Author: dongcx
@@ -15,13 +16,16 @@ import pers.example.netty.server.server.EchoServer;
  */
 @Slf4j
 public class AppStater {
-    public static void main(String[] args) throws InterruptedException {
-        start();
+    public static void main(String[] args) throws Exception {
+        fixedServerStart();
     }
 
 
-    public static void start() throws InterruptedException {
+    public static void echoServerStart() throws InterruptedException {
         new EchoServer().run(8070);
+    }
+    public static void fixedServerStart() throws InterruptedException {
+        new FixedServer().run(8070);
     }
 
     ;
@@ -55,4 +59,9 @@ public class AppStater {
         channel.writeOutbound(buf);
 
     }
+
+    /**
+     * 内存分配测试
+     */
+
 }
