@@ -18,7 +18,7 @@ import pers.example.netty.server.server.FixedServer;
 @Slf4j
 public class AppStater {
     public static void main(String[] args) throws Exception {
-        test0003();
+        echoServerStart();
     }
 
 
